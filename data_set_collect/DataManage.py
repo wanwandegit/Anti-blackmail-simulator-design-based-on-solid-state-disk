@@ -3,7 +3,6 @@ import os
 
 dirs = "./data"  # 存放数据的文件夹路径
 device_number = '8,0'  # 设备号
-process_time = '10'  # 单个blktrace进程的检测时间（单位为秒）
 
 
 # 按页计算数据的熵值（实际上是熵值乘2的N次方，此处页面大小取4096b）
