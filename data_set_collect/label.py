@@ -12,5 +12,6 @@ if __name__ == "__main__":
             fp.write(output[:-1] + '\t1\n')
         else:
             fp.write(output[:-1] + '\t0\n')
+    print("Finished!")
     f.close()
     fp.close()
