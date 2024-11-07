@@ -76,7 +76,14 @@ BianLian+GonnaCry-解压缩-180.txt
 
 ## DataManage.py
 
-该脚本用于处理DataCollect.py收集到的数据（默认相对路径：“./data”）。
+该脚本用于处理DataCollect.py收集到的数据（默认相对路径：“./data”），它会总结文件夹下所有文件的内容，修正每条数据的时间戳，并在原数据后**按顺序**添加以下计算得到的字段（值为-1.0表示无法获取或计算）：
+
+```
+OWIO = 0  # 时间片内写入强度
+OWST = 0  # 时间片写入强度之比
+WAR = 0  # 是否读后写
+APE = 0  # 平均页面熵
+```
 
 直接运行该脚本会在运行目录下生成一个不含标签的数据文件（data.txt）。由于每次运行该脚本都会清空data.txt，请在数据处理完成后及时保存。
 
@@ -84,7 +91,7 @@ BianLian+GonnaCry-解压缩-180.txt
 
 ## label.py
 
-该脚本会根据PIDtest.py得到的进程号将数据打上标签（默认input：“data.txt”，默认output：“data_with_label.txt”）。
+该脚本会根据PIDtest.py得到的进程号将数据打上标签（默认input：“data.txt”，默认output：“data_with_label.txt”），该标签为每行的最后一个字段，0表示非勒索操作，1表示勒索操作。
 
 请注意，脚本中的进程号列表需手动添加。同时请在脚本执行完毕后及时保存数据。
 

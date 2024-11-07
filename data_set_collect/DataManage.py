@@ -2,7 +2,6 @@ import collections
 import os
 
 dirs = "./data"  # 存放数据的文件夹路径
-device_number = '8,0'  # 设备号
 
 
 # 按页计算数据的熵值（实际上是熵值乘2的N次方，此处页面大小取4096b）
@@ -184,7 +183,7 @@ if __name__ == "__main__":
             index = 0
             for attribute in attributes:
                 if index == 3:
-                    m += str(float(attribute) + file_cnt) + '\t'
+                    m += str(float(attribute) % 1 + file_cnt) + '\t'
                 else:
                     m += attribute + '\t'
                 index += 1
