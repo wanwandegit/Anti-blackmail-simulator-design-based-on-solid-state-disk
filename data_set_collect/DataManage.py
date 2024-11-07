@@ -2,6 +2,7 @@ import collections
 import os
 
 dirs = "./data"  # 存放数据的文件夹路径
+process_time = 10
 
 
 # 按页计算数据的熵值（实际上是熵值乘2的N次方，此处页面大小取4096b）
@@ -27,6 +28,7 @@ if __name__ == "__main__":
     folder_path = './data'
     # 获取文件夹内所有项的列表
     items = os.listdir(folder_path)
+    sectors = []  # 定义空列表存放已进行了熵值计算的扇区以避免重复计算
 
     # 从第三对文件开始遍历所有数据文件
     for file_cnt in range(2, int(len(items) / 2)):
@@ -44,7 +46,10 @@ if __name__ == "__main__":
         old_outputs = fn.readlines()
         oldest_outputs = fb.readlines()
 
-        sectors = []  # 定义空列表存放已进行了熵值计算的扇区以避免重复计算，但不同进程间可以出现重复扇区
+        # 统计新进程的数据时，更新列表（不同进程间可以出现重复扇区）
+        if file_cnt % process_time == 0:
+            sectors = []
+
         cnt = 0  # 已读取的扇区数
         entropys_sum = 0  # 当前操作对应页面熵之和
         page_count = 0  # 当前操作对应页面数
@@ -109,7 +114,7 @@ if __name__ == "__main__":
                                                                                                            1] * old_sector_number
                         elif old_sector <= sector and sector < old_sector + old_sector_number < sector + sector_number:
                             sector_list[:old_sector + old_sector_number - sector] = [1] * (
-                                        old_sector + old_sector_number - sector)
+                                    old_sector + old_sector_number - sector)
                         elif old_sector + old_sector_number > sector + sector_number and sector < old_sector < sector + sector_number:
                             sector_list[old_sector - sector:] = [1] * (sector + sector_number - old_sector)
                     # 计算时间片写入强度
@@ -139,7 +144,7 @@ if __name__ == "__main__":
                                                                                                            1] * new_sector_number
                         elif new_sector <= sector and sector < new_sector + new_sector_number < sector + sector_number:
                             sector_list[:new_sector + new_sector_number - sector] = [1] * (
-                                        new_sector + new_sector_number - sector)
+                                    new_sector + new_sector_number - sector)
                         elif new_sector + new_sector_number > sector + sector_number and sector < new_sector < sector + sector_number:
                             sector_list[new_sector - sector:] = [1] * (sector + sector_number - new_sector)
                     # 计算时间片写入强度
@@ -163,10 +168,11 @@ if __name__ == "__main__":
                 break
             sectors.append([sector, sector + sector_number])
 
+            cnt = cnt + sector_number
             # 计算熵值
             if flag == 0:
-                cnt = cnt + sector_number
                 fo.seek(0 - cnt * 512, 2)
+                # print("loc:", fo.tell())
                 for i in range(0, sector_number, 8):
                     read = fo.read(4096)
                     s = entropy(read)

@@ -1,4 +1,4 @@
-# 数据收集脚本使用说明（2024.10.23）
+# 数据收集脚本使用说明（2024.11.7）
 
 ## 使用环境
 
@@ -44,6 +44,8 @@ BianLian+GonnaCry-解压缩-180.txt
 
 ![](revevant_parameter.png)
 
+注意，在修改了time变量的值后，需要同步修改DataManage.py中的process_time变量。
+
 #### 基本原理
 
 脚本采用异步编程的方式，主线程每隔time秒开启一个blktrace进程，收集到数据后开启异步任务（与主线程并行进行），同时开启下一个blktrace进程，进程总数为process_number。
@@ -86,6 +88,8 @@ APE = 0  # 平均页面熵
 ```
 
 直接运行该脚本会在运行目录下生成一个不含标签的数据文件（data.txt）。由于每次运行该脚本都会清空data.txt，请在数据处理完成后及时保存。
+
+此外，需要注意的是，process_time变量的值和DataCollect.py中的time变量保持一致。
 
 
 
