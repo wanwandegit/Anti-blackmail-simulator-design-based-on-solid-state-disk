@@ -1,4 +1,4 @@
-blackmail_PID = []  # 勒索程序对应PID，根据PIDtest的输出进行设置
+blackmail_PID = []  # 勒索程序对应PID，根据PIDtest的输出进行设置，注意元素类型为字符串！
 
 
 if __name__ == "__main__":

@@ -2,15 +2,18 @@ import subprocess
 import multiprocessing
 import time
 import psutil
+import shlex
 
 whole_command = "python3 processtest.py"  # 程序运行指令
 
 
 def run_program(command):
+    # 使用 shlex.split 将命令字符串分割成列表
+    command_list = shlex.split(command)
     # 启动程序并获取主进程
-    process = subprocess.Popen(command)
+    process = subprocess.Popen(command_list)
     print(f"主进程 PID: {process.pid}")
-    
+
     # 若进程未结束，则循环检测其子进程情况
     all_child = []
     while process.poll() is None:
@@ -28,12 +31,6 @@ def run_program(command):
     print("Finished!")
     print(f"主进程 PID: {process.pid}")
     print(f"子进程PIDs: {all_child}")
-
-
-# 运行命令并捕获输出
-def run_command(command):
-    result = subprocess.run(command, shell=True, check=True, capture_output=True, text=True)
-    return result
 
 
 if __name__ == "__main__":
