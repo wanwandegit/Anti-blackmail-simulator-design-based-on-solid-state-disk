@@ -40,4 +40,4 @@
 其中-p 为加密百分比，或许可以更改p的值来获得多个数据，看看对熵的影响
 
 
-malware get from https://bazaar.abuse.ch/sample/031971b9ccb57c1a7cf25bbd58533a6b1b1e760b2f080cb2be5e2522c0d90053/
+malware get from https://bazaar.abuse.ch/download/66f86812a6593cdd760cd2119f8bf1a76f33a1b56ab099edc02de7b0629ea15d/
