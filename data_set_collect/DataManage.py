@@ -97,7 +97,7 @@ if __name__ == "__main__":
             # 结合数据文件{cnt - 1}计算各项指标
             for old_output in old_outputs:
                 old_attributes = old_output.split()
-                if old_attributes[3] >= attributes[3]:
+                if (old_attributes[3] % 1) >= (attributes[3] % 1):
                     old_sector = int(old_attributes[7])  # 起始扇区
                     # 起始扇区 + 偏移量形式
                     if old_attributes[8] == '+':
