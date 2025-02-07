@@ -4,6 +4,10 @@
 
 Python3.0及以上
 
+Linux系统
+
+需提前安装blktrace工具
+
 
 
 ## 使用方法
